@@ -1,0 +1,6 @@
+Flask~=2.1.1
+demjson~=2.2.4
+numpy~=1.22.3
+pandas~=1.4.2
+requests~=2.27.1
+PyMySQL~=1.0.2

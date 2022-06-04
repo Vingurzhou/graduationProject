@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container content">
+    <h1> 管理员面板
+    </h1>
+    <div id="chart"></div>
+
+    <table class="table">
+        <tr>
+            <th>账号</th>
+            <th>密码</th>
+            <th>地区</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <form action="/edit_user" method="post">
+                <td><input style="border-style:none" type="text" name="username" value={{user.username}}></td>
+                <td><input style="border-style:none" type="text" name="password" value={{user.password}}></td>
+                <td><input style="border-style:none" type="text" name="area" value={{user.area}}></td>
+                <input type="hidden" name="username2" value="{{user.username}}">
+                <input type="hidden" name="password2" value="{{user.password}}">
+                <input type="hidden" name="area2" value="{{user.area}}">
+                <td><input type="submit" value='save' class="btn btn-info" style="float:right"></td>
+            </form>
+            <td>
+                <form action="/delete_user" method="post">
+                    <input type="hidden" name="username" value="{{user.username}}">
+                    <input type="submit" value="Delete" class="btn btn-danger">
+                </form>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<script type="text/javascript">
+    let myChart = echarts.init(document.getElementById('chart'));
+
+    const option = {
+        title: {
+            text: '用户的地域分布',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left'
+        },
+        series: [
+            {
+                name: 'Access From',
+                type: 'pie',
+                radius: '50%',
+                data: {{data |tojson}},
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    myChart.setOption(option);
+
+</script>
+{% endblock %}

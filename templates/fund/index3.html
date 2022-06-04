@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <div id="header">
+</div>
+  <div id="main">
+    <div id="chartContainer">
+      <div id="chart"></div>
+    </div>
+    <div id="content">
+              <div id="text">
+      {{text}}
+                  {{result }}
+            </div>
+
+
+
+              </div>
+  </div>
+
+{#  <script src={src} type="text/javascript"></script>#}
+  <script type="text/javascript">
+let myChart = echarts.init(document.getElementById('chart'));
+const data={{data|tojson}}
+const xData = data.map(item => {
+                  return item['净值日期'];
+                });
+const yData =data.map(item => {
+                  return item['单位净值'];
+                });
+const option = {
+    title : {
+        text: '{{fund}}',
+        x: 'center',
+        align: 'right'
+    },
+    grid: {
+        bottom: 80
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    tooltip : {
+        trigger: 'axis',
+        axisPointer: {
+            animation: false
+        }
+    },
+    dataZoom: [
+        {
+            show: true,
+            realtime: true,
+            start: 65,
+            end: 85
+        },
+        {
+            type: 'inside',
+            realtime: true,
+            start: 65,
+            end: 85
+        }
+    ],
+    //x轴时间轴
+    xAxis : [
+        {
+            type : 'category',
+            data : xData
+        }
+    ],
+    yAxis: [
+        {
+            name: '净值',
+            type: 'value'
+        }
+    ],
+    //y轴
+    series: [
+        {
+            name:'{{fund}}',
+            type:'line',
+            animation: false,
+            smooth:true,
+            symbol:'none',
+            lineStyle: {
+                normal: {
+                    width: 1
+                }
+            },
+            data:yData
+        },
+        {
+            name:'{{fund}}',
+            type:'line',
+            animation: false,
+            smooth:true,
+            symbol:'none',
+            lineStyle: {
+                normal: {
+                    width: 1
+                }
+            },
+            data:{{k2}}
+        }
+    ]
+};
+myChart.setOption(option);
+
+  </script>
+
+{% endblock %}

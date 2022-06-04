@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container content">
+    <div class="card bg-light" style="width:600px;margin:auto">
+        <article class="card-body mx-auto" style="width:400px">
+            <h4 class="card-title mt-3 text-center">用户注册</h4>
+            <form method="POST" action="">
+              <div class="form-group">
+                  <input class="form-control" id="username" maxlength="25" minlength="2" name="username" required type="text" value="账号">
+              </div>
+              <div class="form-group">
+                  <input class="form-control" id="password" maxlength="25" minlength="2" name="password" required type="text" value="密码">
+              </div>
+              <div class="form-group">
+                  <input class="form-control" id="re_password" maxlength="25" minlength="2" name="re_password" required type="text" value="密码">
+              </div>
+              <div class="form-group">
+                  <input class="form-control" id="area" maxlength="25" minlength="2" name="area" required type="text" value="地区">
+              </div>
+              <div class="form-group">
+                  <input class="form-control" id="email" maxlength="25" minlength="2" name="email" required type="text" value="邮箱">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block"> 注册 </button>
+              </div>
+            </form>
+        </article>
+    </div>
+</div>
+{% endblock %}

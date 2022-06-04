@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <div id="header">
+</div>
+  <div id="main">
+    <div id="chartContainer2">
+      <div id="chart2"></div>
+    </div>
+
+  </div>
+
+{#  <script src={src} type="text/javascript"></script>#}
+  <script type="text/javascript">
+let myChart = echarts.init(document.getElementById('chart2'));
+const datas={{datas|tojson}};
+const xData = datas[Object.keys(datas)[0]].map(item => {
+                  return item['净值日期'];
+                });
+let series = [];
+for (let key in datas) {
+  series.push({
+            name:key,
+            type:'line',
+            animation: false,
+            smooth:true,
+            symbol:'none',
+            lineStyle: {
+                normal: {
+                    width: 1
+                }
+            },
+            data:datas[key].map(item => {
+                  return item['单位净值'];
+                })
+        });
+}
+
+const option = {
+    title : {
+        text: '对比图',
+        x: 'center',
+        align: 'right'
+    },
+    grid: {
+        bottom: 80
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    tooltip : {
+        trigger: 'axis',
+        axisPointer: {
+            animation: false
+        }
+    },
+    dataZoom: [
+        {
+            show: true,
+            realtime: true,
+            start: 65,
+            end: 85
+        },
+        {
+            type: 'inside',
+            realtime: true,
+            start: 65,
+            end: 85
+        }
+    ],
+    //x轴时间轴
+    xAxis : [
+        {
+            type : 'category',
+            data : xData
+        }
+    ],
+    yAxis: [
+        {
+            name: '净值',
+            type: 'value'
+        }
+    ],
+    //y轴
+    series: series
+};
+myChart.setOption(option);
+
+  </script>
+
+{% endblock %}

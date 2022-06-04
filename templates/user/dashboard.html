@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container content">
+  <form method="POST" action=""><h1>控制台 <small> 欢迎 {{session.username}}</small>
+              <button class="btn btn-primary" style="float:right"> 分析 </button>
+            <input type="text" name="name" style="float:right">
+  </h1></form>
+  <hr>
+  <table class="table">
+    <tr>
+      <th>基金代码</th>
+      <th>基金名称</th>
+      <th>申购状态</th>
+      <th>赎回状态</th>
+      <th></th>
+      <th></th>
+    </tr>
+    {% for article in articles %}
+      <tr>
+        <td>{{article.fund_code}}</td>
+        <td><a href="/{{article.fund_abbreviation}}">{{article.fund_abbreviation}}<a></td>
+        <td>{{article.subscription_status}}</td>
+        <td>{{article.redemption_status}}</td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}
